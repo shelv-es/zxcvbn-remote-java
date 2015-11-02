@@ -11,10 +11,6 @@ import retrofit.http.POST;
 public class ZxcvbnRemote {
 	private final ZxcvbnRemoteService service;
 
-	public ZxcvbnRemote() {
-		this("https://password.wtf");
-	}
-
 	public ZxcvbnRemote(String endpoint) {
 		this.service = new RestAdapter.Builder()
 							   .setEndpoint(endpoint)
