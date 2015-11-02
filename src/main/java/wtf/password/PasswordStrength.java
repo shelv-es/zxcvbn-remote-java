@@ -3,6 +3,9 @@ package wtf.password;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * Result from calling <code>zxcvbn</code>.
+ *
+ * @since zxcvbn 4.0.1
  * @author <a href="mailto:erik.beeson@gmail.com">Erik Beeson</a>
  */
 public class PasswordStrength {
@@ -39,11 +42,28 @@ public class PasswordStrength {
 		return crackTimeSeconds;
 	}
 
-
+	/**
+	 * Same keys as {@link CrackTimeSeconds}, with friendlier display string values: "less than a second", "3 hours", "centuries", etc.
+	 *
+	 * @see wtf.password.PasswordStrength.CrackTimeSeconds
+	 */
 	public CrackTimeDisplay getCrackTimeDisplay() {
 		return crackTimeDisplay;
 	}
 
+	/**
+	 * Integer from 0-4 (useful for implementing a strength bar)
+	 *
+	 * <ul>
+	 * <li><code>0</code> too guessable: risky password. (guesses < 10^3)</li>
+	 * <li><code>1</code> very guessable: protection from throttled online attacks. (guesses < 10^6)</li>
+	 * <li><code>2</code> somewhat guessable: protection from unthrottled online attacks. (guesses < 10^8)</li>
+	 * <li><code>3</code> safely unguessable: moderate protection from offline slow-hash scenario. (guesses < 10^10)</li>
+	 * <li><code>4</code> very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)</li>
+	 * </ul>
+	 *
+	 * @return Integer from 0-4 (useful for implementing a strength bar)
+	 */
 	public int getScore() {
 		return score;
 	}
