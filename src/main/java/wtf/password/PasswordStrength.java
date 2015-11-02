@@ -2,10 +2,12 @@ package wtf.password;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
+
 /**
  * Result from calling <code>zxcvbn</code>.
  *
- * @since zxcvbn 4.0.1
+ * @since zxcvbn 4.1.1
  * @author <a href="mailto:erik.beeson@gmail.com">Erik Beeson</a>
  */
 public class PasswordStrength {
@@ -17,6 +19,9 @@ public class PasswordStrength {
 	@SerializedName("crack_times_display")
 	private CrackTimeDisplay crackTimeDisplay;
 	private int score;
+	private Feedback feedback;
+	@SerializedName("calc_time")
+	private long calcTime;
 
 	public PasswordStrength() {
 	}
@@ -68,8 +73,28 @@ public class PasswordStrength {
 		return score;
 	}
 
+	/**
+	 * @return Verbal feedback to help choose better passwords. Set when score <= 2.
+	 */
+	public Feedback getFeedback() {
+		return feedback;
+	}
+
+	/**
+	 * @return How long it took zxcvbn to calculate an answer, in milliseconds.
+	 */
+	public long getCalcTime() {
+		return calcTime;
+	}
+
 	public String toString() {
-		return "PasswordStrength{" + "guesses=" + guesses + ", guessesLog10=" + guessesLog10 + ", crackTimeSeconds=" + crackTimeSeconds + ", crackTimeDisplay=" + crackTimeDisplay + ", score=" + score + '}';
+		return "PasswordStrength{" +
+					   "guesses=" + guesses + ", " +
+					   "guessesLog10=" + guessesLog10 + ", " +
+					   "crackTimeSeconds=" + crackTimeSeconds + ", " +
+					   "crackTimeDisplay=" + crackTimeDisplay + ", " +
+					   "score=" + score + ", " +
+					   "feedback=" + feedback + "}";
 	}
 
 	/**
@@ -177,6 +202,37 @@ public class PasswordStrength {
 						   "onlineNoThrottling10PerSecond='" + onlineNoThrottling10PerSecond + "', " +
 						   "offlineSlowHashing1e4PerSecond='" + offlineSlowHashing1e4PerSecond + "', " +
 						   "offlineFastHashing1e10PerSecond='" + offlineFastHashing1e10PerSecond + '}';
+		}
+	}
+
+	/**
+	 * Verbal feedback to help choose better passwords. Set when score <= 2.
+	 */
+	public static class Feedback {
+		private String warning;
+		private String[] suggestions;
+
+		public Feedback() {
+		}
+
+		/**
+		 * @return Explains what's wrong, eg. 'this is a top-10 common password'. Not always set -- sometimes an empty string.
+		 */
+		public String getWarning() {
+			return warning;
+		}
+
+		/**
+		 * @return A possibly-empty list of suggestions to help choose a less guessable password, eg. 'Add another word or two'.
+		 */
+		public String[] getSuggestions() {
+			return suggestions;
+		}
+
+		public String toString() {
+			return "Feedback{" +
+						   "warning='" + warning + "', " +
+						   "suggestions=" + Arrays.toString(suggestions) + "}";
 		}
 	}
 }
