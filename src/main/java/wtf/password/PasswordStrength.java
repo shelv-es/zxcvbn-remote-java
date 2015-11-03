@@ -48,9 +48,8 @@ public class PasswordStrength {
 	}
 
 	/**
-	 * Same keys as {@link CrackTimeSeconds}, with friendlier display string values: "less than a second", "3 hours", "centuries", etc.
-	 *
 	 * @see wtf.password.PasswordStrength.CrackTimeSeconds
+	 * @return Same keys as {@link CrackTimeSeconds}, with friendlier display string values: "less than a second", "3 hours", "centuries", etc.
 	 */
 	public CrackTimeDisplay getCrackTimeDisplay() {
 		return crackTimeDisplay;
@@ -60,11 +59,11 @@ public class PasswordStrength {
 	 * Integer from 0-4 (useful for implementing a strength bar)
 	 *
 	 * <ul>
-	 * <li><code>0</code> too guessable: risky password. (guesses < 10^3)</li>
-	 * <li><code>1</code> very guessable: protection from throttled online attacks. (guesses < 10^6)</li>
-	 * <li><code>2</code> somewhat guessable: protection from unthrottled online attacks. (guesses < 10^8)</li>
-	 * <li><code>3</code> safely unguessable: moderate protection from offline slow-hash scenario. (guesses < 10^10)</li>
-	 * <li><code>4</code> very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)</li>
+	 * <li><code>0</code> too guessable: risky password. (guesses &lt; 10^3)</li>
+	 * <li><code>1</code> very guessable: protection from throttled online attacks. (guesses &lt; 10^6)</li>
+	 * <li><code>2</code> somewhat guessable: protection from unthrottled online attacks. (guesses &lt; 10^8)</li>
+	 * <li><code>3</code> safely unguessable: moderate protection from offline slow-hash scenario. (guesses &lt; 10^10)</li>
+	 * <li><code>4</code> very unguessable: strong protection from offline slow-hash scenario. (guesses &gt;= 10^10)</li>
 	 * </ul>
 	 *
 	 * @return Integer from 0-4 (useful for implementing a strength bar)
@@ -74,7 +73,7 @@ public class PasswordStrength {
 	}
 
 	/**
-	 * @return Verbal feedback to help choose better passwords. Set when score <= 2.
+	 * @return Verbal feedback to help choose better passwords. Set when score &lt;= 2.
 	 */
 	public Feedback getFeedback() {
 		return feedback;
@@ -206,7 +205,7 @@ public class PasswordStrength {
 	}
 
 	/**
-	 * Verbal feedback to help choose better passwords. Set when score <= 2.
+	 * Verbal feedback to help choose better passwords. Set when score &lt;= 2.
 	 */
 	public static class Feedback {
 		private String warning;
